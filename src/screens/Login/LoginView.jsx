@@ -16,28 +16,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
 
 const LoginView = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
-      const response = await Axios.post('http://127.0.0.1:8000/api/login/login', {
-        username,
+      console.log('Enviando solicitud de inicio de sesión...');
+      
+      const response = await Axios.post('http://192.168.0.6:8000/api/login/login', {
+        email,
         password,
       });
+  
+      console.log('Respuesta del servidor:', response.data);
+  
       const token = response.data.token;
-
+  
       // Almacenar el token de manera segura
       await AsyncStorage.setItem('token', token);
+  
+      console.log('Inicio de sesión exitoso. Navegando a la pantalla Home.');
       navigation.navigate('Home');
     } catch (error) {
       console.error('Error de inicio de sesión:', error);
+  
       // Manejar el error (mostrar mensaje al usuario, etc.)
     }
   };
-
+  
   const handleRegister = () => {
     navigation.navigate('Register');
   };
@@ -64,9 +72,9 @@ const LoginView = () => {
           </Text>
           <TextInput
             style={LoginStyles.input}
-            placeholder="Usuario"
-            onChangeText={(text) => setUsername(text)}
-            value={username}
+            placeholder="Email"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
           />
           <TextInput
             style={LoginStyles.input}
