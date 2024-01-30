@@ -32,7 +32,7 @@ const RegisterView = () => {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -100} // Ajusta el desplazamiento vertical según tus necesidades
+      keyboardVerticalOffset={Platform.OS === 'ios' ? -100 : -100}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={RegisterStyles.container}>
