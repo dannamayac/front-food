@@ -25,7 +25,7 @@ const LoginView = () => {
     try {
       console.log('Enviando solicitud de inicio de sesión...');
       
-      const response = await Axios.post('http://192.168.0.6:8000/api/login/login', {
+      const response = await Axios.post('http://192.168.0.3:8000/api/login/login', {
         email,
         password,
       });
@@ -38,7 +38,7 @@ const LoginView = () => {
       await AsyncStorage.setItem('token', token);
   
       console.log('Inicio de sesión exitoso. Navegando a la pantalla Home.');
-      navigation.navigate('Home');
+      navigation.navigate('Menu');
     } catch (error) {
       console.error('Error de inicio de sesión:', error);
   

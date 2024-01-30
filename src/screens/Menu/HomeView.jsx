@@ -29,7 +29,7 @@ const HomeView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get('http://192.168.0.6:8000/api/products/all', {
+        const response = await Axios.get('http://192.168.0.3:8000/api/products/all', {
           headers: {
             Authorization: `Bearer ${token}`, // Agregar el token al encabezado
           },
