@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { Card } from 'react-native-elements';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
+import homeStyles from '../../styles/HomeStyles';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const Tab = createBottomTabNavigator();
-
-const HomeContent = () => {
+const HomeView = () => {
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState('');
 
@@ -47,39 +46,21 @@ const HomeContent = () => {
   }, [token]);
 
   return (
-    <View style={styles.content}>
-    <Card>
-      <Card.Title>Bienvenido a la aplicación</Card.Title>
-      <Card.Divider />
-      {products.map((product) => (
-        <View key={product.id}>
-          <Text>Nombre: {product.name}</Text>
-          <Text>Fecha de vencimiento: {product.expiration_date}</Text>
-          <Card.Divider />
-        </View>
-      ))}
-    </Card>
-  </View>
+    <View style={homeStyles.content}>
+      <Icon name="home" size={30} />
+      <Card>
+        <Card.Title>Bienvenido a la aplicación</Card.Title>
+        <Card.Divider />
+        {products.map((product) => (
+          <View key={product.id}>
+            <Text>Nombre: {product.name}</Text>
+            <Text>Fecha de vencimiento: {product.expiration_date}</Text>
+            <Card.Divider />
+          </View>
+        ))}
+      </Card>
+    </View>
   );
 };
-
-const HomeView = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Ofertas" component={HomeContent} />
-      <Tab.Screen name="Recetas" component={HomeContent} />
-
-      {/* Agrega otras pestañas aquí si es necesario */}
-    </Tab.Navigator>
-  );
-};
-
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default HomeView;

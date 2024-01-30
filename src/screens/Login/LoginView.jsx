@@ -51,8 +51,7 @@ const LoginView = () => {
   };
 
   const handleForgotPassword = () => {
-    // Implementa la lógica de redirección a la vista de recuperación de contraseña
-    console.log('Redirigiendo a la vista de recuperación de contraseña');
+    navigation.navigate('Menu');
   };
 
   return (
