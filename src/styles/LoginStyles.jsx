@@ -20,16 +20,16 @@ const styles = StyleSheet.create({
   },
   highlightText1: {
     color: GlobalStyles.colors.forestGreen,
-    fontWeight: 'bold', // Puedes ajustar el estilo según tus preferencias
+    fontWeight: 'bold', 
   },
   highlightText2: {
     color: GlobalStyles.colors.lemonYellow,
-    fontWeight: 'bold', // Puedes ajustar el estilo según tus preferencias
+    fontWeight: 'bold', 
   },
   container: {
     flex: 1,
-    justifyContent: 'center',  // Alinea verticalmente
-    alignItems: 'center',      // Centra horizontalmente
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
     paddingBottom: 50,
     backgroundColor: GlobalStyles.colors.blueGreen,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 16,
     paddingLeft: 20,
-    backgroundColor: 'white', // Puedes ajustar el color de fondo según tus necesidades
+    backgroundColor: 'white',
   },
   loginButton: {
     backgroundColor: GlobalStyles.colors.lemonYellow,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   registerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10, // Ajusta según sea necesario
+    marginBottom: 10,
     justifyContent: 'center',
   },
   registerText: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   lostPasswordContainer: {
-    flexDirection: 'row', // Nueva línea aquí
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

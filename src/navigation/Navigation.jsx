@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,8 +9,14 @@ import HomeView from '../screens/Menu/HomeView';
 import UserView from '../screens/Menu/UserView';
 import CartView from '../screens/Menu/CartView';
 import OptionsView from '../screens/Menu/OptionsView';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import GlobalStyles from '../styles/GlobalStyles';
+
+library.add(fab, far, fas);
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,18 +33,17 @@ const HomeStack = () => {
 const MenuTabNavigator = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showLabel: false,
-        style: {
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
           borderTopWidth: 0,
         },
-      }}
-      screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size, focused }) => {
           let iconName;
 
           if (route.name === "TabHome") {
-            iconName = "home";
+            iconName = "bread-slice";
           } else if (route.name === "TabUser") {
             iconName = "user";
           } else if (route.name === "TabCart") {
@@ -48,9 +54,13 @@ const MenuTabNavigator = () => {
 
           const iconColor = focused
             ? GlobalStyles.colors.orange
-            : GlobalStyles.colors.paleBlue; 
+            : GlobalStyles.colors.paleBlue;
 
-          return <Icon name={iconName} size={size} color={iconColor} solid={true} />;
+          return (
+            <View style={{ alignItems: 'center' }}>
+              <FontAwesomeIcon icon={iconName} size={size} color={iconColor} />
+            </View>
+          );
         },
       })}
     >

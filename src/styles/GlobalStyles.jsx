@@ -7,6 +7,7 @@ const GlobalStyles = {
       orange: '#fd8502',
       forestGreen: '#40752a',
       lightBeige: '#ebe2d9',
+      ligth: '#fefaf7',
     },
   };
   
