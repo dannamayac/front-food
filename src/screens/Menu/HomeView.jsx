@@ -6,14 +6,25 @@ import Axios from 'axios';
 import homeStyles from '../../styles/HomeStyles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AddProductModal from '../../components/AddProductModal';
+import EditProductModal from '../../components/EditProductModal';
 
 const HomeView = () => {
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
+  const toggleAddModal = () => {
+    setIsAddModalVisible(!isAddModalVisible);
+  };
+
+  const toggleEditModal = () => {
+    setIsEditModalVisible(!isEditModalVisible);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuVisible(!isMenuVisible);
   };
 
   const addNewProduct = (newProduct) => {
@@ -21,7 +32,15 @@ const HomeView = () => {
     // ...
 
     // Cierra el modal después de agregar el producto
-    toggleModal();
+    toggleMenu();
+  };
+
+  const editProduct = (editedProduct) => {
+    // Lógica para enviar la edición del producto al backend y actualizar la lista
+    // ...
+
+    // Cierra el modal después de editar el producto
+    toggleMenu();
   };
 
   useEffect(() => {
@@ -43,7 +62,7 @@ const HomeView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get('http://192.168.0.3:8000/api/products/all', {
+        const response = await Axios.get('http://3.136.134.235:8000/api/products/all', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -78,19 +97,37 @@ const HomeView = () => {
         </View>
       </ScrollView>
 
-      {/* Botón para mostrar el modal */}
-      <TouchableOpacity
-        style={homeStyles.addButton}
-        onPress={toggleModal}
-      >
-        <Icon name="plus" size={20} color="#fff" />
+      {/* Botón principal para mostrar/ocultar el menú */}
+      <TouchableOpacity style={homeStyles.menuButton} onPress={toggleMenu}>
+        <Icon name={isMenuVisible ? 'times' : 'plus'} size={20} color="#fff" />
       </TouchableOpacity>
+
+      {/* Botón para agregar producto */}
+      {isMenuVisible && (
+        <TouchableOpacity style={homeStyles.addButton} onPress={toggleAddModal}>
+          <Text style={homeStyles.addButtonText}>Agregar Producto</Text>
+        </TouchableOpacity>
+      )}
+
+      {/* Botón para editar productos */}
+      {isMenuVisible && (
+        <TouchableOpacity style={homeStyles.editButton} onPress={toggleEditModal}>
+          <Text style={homeStyles.editButtonText}>Editar Productos</Text>
+        </TouchableOpacity>
+      )}
 
       {/* Modal para agregar producto */}
       <AddProductModal
-        isVisible={isModalVisible}
-        onClose={toggleModal}
+        isVisible={isAddModalVisible}
+        onClose={toggleAddModal}
         onAddProduct={addNewProduct}
+      />
+
+      {/* Modal para editar productos */}
+      <EditProductModal
+        isVisible={isEditModalVisible}
+        onClose={toggleEditModal}
+        onEditProduct={editProduct}
       />
     </View>
   );

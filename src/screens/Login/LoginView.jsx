@@ -25,7 +25,7 @@ const LoginView = () => {
     try {
       console.log('Enviando solicitud de inicio de sesión...');
       
-      const response = await Axios.post('http://192.168.0.3:8000/api/login/login', {
+      const response = await Axios.post('http://3.136.134.235:8000/api/login/login', {
         email,
         password,
       });

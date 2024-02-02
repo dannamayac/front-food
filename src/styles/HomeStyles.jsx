@@ -12,7 +12,7 @@ const homeStyles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.light,
   },
   content: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 1,
     paddingBottom: 15,
     marginTop: 40,
   },
@@ -21,11 +21,14 @@ const homeStyles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginHorizontal: -5,
+    marginStart: 5,
   },
   shadowContainer: {
     width: '50%', // Ajusta según tus necesidades
-    marginBottom: 10,
-    backgroundColor: GlobalStyles.colors.light, // Agrega un color de fondo
+    marginBottom: -2,
+    marginStart: -5,
+    marginRight: 5,
+    backgroundColor: GlobalStyles.colors.light,
     ...Platform.select({
       ios: {
         shadowColor: 'rgba(0, 0, 0, 0.2)',
@@ -68,11 +71,11 @@ const homeStyles = StyleSheet.create({
     marginTop: 5,
     color: GlobalStyles.colors.orange,
   },
-  //BOTON PARA AGREGAR PRODUCTOS
-  addButton: {
+  // BOTON PRINCIPAL DE MENÚ
+  menuButton: {
     position: 'absolute',
-    bottom: 20, 
-    right: 20, 
+    bottom: 20,
+    right: 20,
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -82,7 +85,47 @@ const homeStyles = StyleSheet.create({
     elevation: 5,
     zIndex: 1,
   },
-  //ESTILOS DE MODAL
+  //BOTONES DE EDITAR Y AGREGAR
+  // Botón para agregar producto
+addButton: {
+  position: 'absolute',
+  bottom: 150,
+  right: 20,
+  width: 160,
+  height: 50,
+  borderRadius: 25,
+  backgroundColor: GlobalStyles.colors.lightBeige,
+  justifyContent: 'center',
+  alignItems: 'center',
+  elevation: 5,
+  zIndex: 1,
+},
+
+// Botón para editar productos
+editButton: {
+  position: 'absolute',
+  bottom: 80,
+  right: 20,
+  width: 160,
+  height: 50,
+  borderRadius: 25,
+  backgroundColor: GlobalStyles.colors.lightBeige,
+  justifyContent: 'center',
+  alignItems: 'center',
+  elevation: 5,
+  zIndex: 1,
+},
+addButtonText: {
+    color: GlobalStyles.colors.forestGreen,
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+  editButtonText: {
+    color: GlobalStyles.colors.forestGreen,
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+  // ESTILOS DE MODAL
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -125,7 +168,7 @@ const homeStyles = StyleSheet.create({
     alignItems: 'center',
   },
   modalButtonText: {
-    color: "black",
+    color: 'black',
     fontWeight: 'bold',
   },
   modalCancelButton: {
