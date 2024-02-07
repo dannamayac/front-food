@@ -1,3 +1,4 @@
+// RegisterView.js
 import React, { useState } from "react";
 import {
   View,
@@ -27,7 +28,7 @@ const RegisterView = () => {
   const handleRegister = async () => {
     try {
       const response = await Axios.post(
-        "http://3.136.134.235:8000/api/login/register",
+        `${process.env.EXPO_PUBLIC_BASE_URL}${process.env.EXPO_PUBLIC_REGISTER}`,
         {
           name,
           email,

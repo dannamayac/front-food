@@ -5,7 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginView from '../screens/Login/LoginView';
 import RegisterView from '../screens/Login/RegisterView';
-import HomeView from '../screens/Menu/HomeView';
+import HomeView from '../screens/Menu/HomeProductos/HomeView';
+import ProductsView from '../screens/Menu/HomeProductos/ProductsView';
 import UserView from '../screens/Menu/UserView';
 import CartView from '../screens/Menu/CartView';
 import OptionsView from '../screens/Menu/OptionsView';
@@ -25,6 +26,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeView} />
+      <Stack.Screen name="Product" component={ProductsView} />
       {/* Agrega otras pantallas aquí si es necesario */}
     </Stack.Navigator>
   );

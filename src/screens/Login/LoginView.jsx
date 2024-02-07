@@ -1,3 +1,4 @@
+// LoginView.js
 import React, { useState } from 'react';
 import {
   View,
@@ -25,7 +26,7 @@ const LoginView = () => {
     try {
       console.log('Enviando solicitud de inicio de sesión...');
       
-      const response = await Axios.post('http://3.136.134.235:8000/api/login/login', {
+      const response = await Axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}${process.env.EXPO_PUBLIC_LOGIN}`, {
         email,
         password,
       });

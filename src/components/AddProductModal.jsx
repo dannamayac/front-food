@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import homeStyles from '../styles/HomeStyles';
+import homeStyles from '../styles/ProductStyles';
 
 const AddProductModal = ({ isVisible, onClose, onAddProduct }) => {
   const [newProductName, setNewProductName] = useState('');

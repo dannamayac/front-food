@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import homeStyles from '../styles/HomeStyles';
+import homeStyles from '../styles/ProductStyles';
 
 const EditProductModal = ({ isVisible, onClose, onEditProduct, productToEdit }) => {
   const [editedProductName, setEditedProductName] = useState('');

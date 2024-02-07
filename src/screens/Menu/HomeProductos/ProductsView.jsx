@@ -1,14 +1,15 @@
+// ProductsView.js
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { Card, Image } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
-import homeStyles from '../../styles/HomeStyles';
+import ProductStyles from '../../../styles/ProductStyles'; 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import AddProductModal from '../../components/AddProductModal';
-import EditProductModal from '../../components/EditProductModal';
+import AddProductModal from '../../../components/AddProductModal';
+import EditProductModal from '../../../components/EditProductModal';
 
-const HomeView = () => {
+const ProductsView = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState('');
@@ -27,19 +28,39 @@ const HomeView = () => {
     setIsMenuVisible(!isMenuVisible);
   };
 
-  const addNewProduct = (newProduct) => {
-    // Lógica para enviar el nuevo producto al backend y actualizar la lista
-    // ...
-
-    // Cierra el modal después de agregar el producto
+  const addNewProduct = async (newProduct) => {
+    try {
+      const response = await Axios.post(`${process.env.EXPO_PUBLIC_BASE_URL}/products/insert`, newProduct, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Actualizar la lista de productos
+      setProducts([...products, response.data]);
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+    }
     toggleMenu();
   };
 
-  const editProduct = (editedProduct) => {
-    // Lógica para enviar la edición del producto al backend y actualizar la lista
-    // ...
-
-    // Cierra el modal después de editar el producto
+  const editProduct = async (editedProduct) => {
+    try {
+      const response = await Axios.put(`${process.env.EXPO_PUBLIC_BASE_URL}/products/update`, editedProduct, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Actualizar la lista de productos
+      const updatedProducts = products.map((product) => {
+        if (product.id === editedProduct.id) {
+          return response.data;
+        }
+        return product;
+      });
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error('Error al editar el producto:', error);
+    }
     toggleMenu();
   };
 
@@ -62,7 +83,7 @@ const HomeView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get('http://3.136.134.235:8000/api/products/all', {
+        const response = await Axios.get(`${process.env.EXPO_PUBLIC_BASE_URL}/products/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -80,16 +101,16 @@ const HomeView = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={homeStyles.scrollView}>
-        <View style={homeStyles.content}>
-          <View style={homeStyles.cardsContainer}>
+      <ScrollView style={ProductStyles.scrollView}>
+        <View style={ProductStyles.content}>
+          <View style={ProductStyles.cardsContainer}>
             {products.map((product) => (
-              <View key={product.id} style={homeStyles.shadowContainer}>
-                <Card containerStyle={homeStyles.cardContainer}>
-                  <Image source={{ uri: product.image }} style={homeStyles.cardImage} />
-                  <Text style={homeStyles.cardTitle}>{product.name}</Text>
-                  <Text style={homeStyles.cardExpiration}>Fecha expiración: {product.expiration_date}</Text>
-                  <Text style={homeStyles.cardPrice}>Precio: ${product.price}</Text>
+              <View key={product.id} style={ProductStyles.shadowContainer}>
+                <Card containerStyle={ProductStyles.cardContainer}>
+                  <Image source={{ uri: product.image }} style={ProductStyles.cardImage} />
+                  <Text style={ProductStyles.cardTitle}>{product.name}</Text>
+                  <Text style={ProductStyles.cardExpiration}>Fecha expiración: {product.expiration_date}</Text>
+                  <Text style={ProductStyles.cardPrice}>Precio: ${product.price}</Text>
                 </Card>
               </View>
             ))}
@@ -98,21 +119,21 @@ const HomeView = () => {
       </ScrollView>
 
       {/* Botón principal para mostrar/ocultar el menú */}
-      <TouchableOpacity style={homeStyles.menuButton} onPress={toggleMenu}>
+      <TouchableOpacity style={ProductStyles.menuButton} onPress={toggleMenu}>
         <Icon name={isMenuVisible ? 'times' : 'plus'} size={20} color="#fff" />
       </TouchableOpacity>
 
       {/* Botón para agregar producto */}
       {isMenuVisible && (
-        <TouchableOpacity style={homeStyles.addButton} onPress={toggleAddModal}>
-          <Text style={homeStyles.addButtonText}>Agregar Producto</Text>
+        <TouchableOpacity style={ProductStyles.addButton} onPress={toggleAddModal}>
+          <Text style={ProductStyles.addButtonText}>Agregar Producto</Text>
         </TouchableOpacity>
       )}
 
       {/* Botón para editar productos */}
       {isMenuVisible && (
-        <TouchableOpacity style={homeStyles.editButton} onPress={toggleEditModal}>
-          <Text style={homeStyles.editButtonText}>Editar Productos</Text>
+        <TouchableOpacity style={ProductStyles.editButton} onPress={toggleEditModal}>
+          <Text style={ProductStyles.editButtonText}>Editar Productos</Text>
         </TouchableOpacity>
       )}
 
@@ -133,4 +154,4 @@ const HomeView = () => {
   );
 };
 
-export default HomeView;
+export default ProductsView;
